@@ -1,58 +1,59 @@
-# URBTRAIN
+﻿# URBTRAIN
 
-Site institucional, agenda, loja e galeria da URBTRAIN. O projeto e 100% estatico, feito com HTML, CSS e JavaScript modular, pronto para GitHub Pages.
+Sistema web da URBTRAIN construído com Next.js, React, TypeScript e Supabase.
 
-## Paginas
+## Tecnologias
 
-- `index.html`: apresentacao institucional e produtos em destaque.
-- `agenda.html`: calendario mensal e proximos treinos.
-- `loja.html`: catalogo, carrinho e finalizacao pelo WhatsApp.
-- `galeria.html`: fotos com visualizacao ampliada.
+- Next.js (App Router) e React
+- TypeScript e Tailwind CSS
+- Supabase: autenticação, banco de dados e armazenamento
+- Vercel: deploy e variáveis de ambiente
 
 ## Estrutura
 
+```text
+public/                 Imagens públicas utilizadas pela aplicação
+src/app/                Páginas e rotas do Next.js
+src/components/         Componentes reutilizáveis
+src/lib/                Clientes e tipos do Supabase
+supabase/migrations/    Estrutura e políticas de segurança do banco
 ```
-assets/       Imagens publicas em WebP e PNG
-css/          Estilos globais e responsivos
-data/         Conteudos editaveis em JSON
-js/components Componentes compartilhados
-js/pages/     Logica especifica de cada pagina
-```
 
-## Atualizar Conteudos
+## Rotas
 
-Os dados do site ficam em `data/`:
+- `/`: apresentação institucional
+- `/agenda`: calendário e próximos treinos
+- `/loja`: catálogo oficial
+- `/galeria`: registros da comunidade
+- `/login` e `/cadastro`: autenticação
+- `/conta`: perfil e pedidos do cliente
+- `/admin`: painel administrativo
 
-- `site.json`: Instagram, email, numero do WhatsApp e estatisticas.
-- `agenda.json`: calendario e lista de treinos.
-- `produtos.json`: produtos, precos em centavos, imagens e variantes.
-- `galeria.json`: imagens, textos alternativos e legendas.
+## Desenvolvimento
 
-Para ativar os pedidos, altere apenas `whatsapp` em `data/site.json` para o numero com DDI e DDD, sem espacos ou simbolos. O valor atual e propositalmente ficticio.
-
-## Rodar Localmente
-
-Use um servidor estatico para que os modulos JavaScript e arquivos JSON sejam carregados corretamente:
+1. Copie `.env.example` para `.env.local`.
+2. Preencha as variáveis públicas do Supabase e do WhatsApp.
+3. Instale as dependências e inicie o projeto:
 
 ```powershell
-python -m http.server 8000
+npm install
+npm run dev
 ```
 
-Abra `http://localhost:8000` no navegador.
+Abra `http://localhost:3000`.
 
-## GitHub Pages
+## Qualidade
 
-1. Envie a branch `main` para o GitHub.
-2. Em `Settings > Pages`, selecione `Deploy from a branch`.
-3. Escolha a branch `main` e a pasta `/(root)`.
-4. Salve e aguarde a publicacao.
+```powershell
+npm run lint
+npm run typecheck
+npm run build
+```
 
-GitHub Pages nao executa PHP. Por isso, pedidos usam o link do WhatsApp no navegador e o carrinho permanece salvo localmente.
+## Deploy
 
-## Recursos
+O deploy é feito pela Vercel a partir do repositório GitHub. Configure as variáveis de `.env.example` no painel da Vercel para Preview e Production. Segredos nunca devem ser enviados ao repositório.
 
-- Design urbano em preto, branco e cinzas.
-- Layout responsivo e imagens com carregamento preguicoso.
-- Animacoes suaves com suporte a `prefers-reduced-motion`.
-- Navegacao por teclado, `skip link`, foco visivel e links externos protegidos.
-- Carrinho persistente via `localStorage`, sem cadastro ou pagamento online.
+## Banco de dados
+
+As migrations em `supabase/migrations/` criam as tabelas, gatilhos, índices e políticas RLS. A chave `service_role` não é utilizada no navegador.
